@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Coffe Shop Website" />
+    <meta name="CCBot" content="nofollow" />
+    <title>Harlan Gilbran</title>
+
+    <!-- Sweet Alert -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/fontawesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"
+    />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Logo Website -->
+    <link rel="icon" href="img/logo-coffe.svg" />
+  </head>
+
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar">
+      <a
+        href="https://github.com/Zevhys"
+        target="_blank"
+        rel="noreferrer noopener"
+        class="navbar-logo primary-gradient"
+        >KOPI <span>PILIH DIA ATAU AKU</span>
+      </a>
+
+      <div class="navbar-nav">
+        <a href="#home" class="primary-gradient-hover">Home</a>
+        <a href="#about" class="primary-gradient-hover">Tentang Kami</a>
+        <a href="#menu" class="primary-gradient-hover">Menu</a>
+        <a href="#products" class="primary-gradient-hover">Produk</a>
+        <a href="#contact" class="primary-gradient-hover">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a id="search-button"
+          ><i class="fa-solid fa-magnifying-glass icon"></i
+        ></a>
+        <a id="shopping-bag-button">
+          <div id="shopping-bag-count" class="hidden">0</div>
+          <i class="fa-solid fa-cart-shopping icon shopping-bag-icon"></i>
+        </a>
+        <a id="hamburger-menu">
+          <i class="fa-solid fa-bars icon"></i>
+        </a>
+      </div>
+
+      <!-- Search From Start -->
+      <div class="search-form" id="search-results">
+        <input
+          type="search"
+          id="search-box"
+          placeholder="Cari..."
+          oninput="search()"
+        />
+        <label for="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+      </div>
+      <!-- Search From End -->
+
+      <!-- Shopping Bag Start -->
+      <div class="shopping-bag">
+        <div class="cart-item hidden" id="cart-item-template">
+          <img
+            src="img/product/product-1.webp"
+            alt="product-1"
+            loading="lazy"
+          />
+          <div class="item-detail">
+            <div class="item-name">
+              <h3>Product 1</h3>
+              <button class="fa-regular fa-trash-can remove-item"></button>
+            </div>
+            <div class="prices-quantity">
+              <div class="item-price">IDR 30K</div>
+              <div class="price-calc">
+                X
+                <button class="btn-qty qty-sub">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <input
+                  type="number"
+                  pattern="^[0-9]"
+                  maxlength="2"
+                  value="1"
+                  class="item-quantity"
+                />
+                <button class="btn-qty qty-add">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                =
+              </div>
+              <div class="item-price-total">Rp 30.000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shopping-bag-empty">
+          <p>Keranjang Kosong</p>
+        </div>
+
+        <div class="shopping-bag-inner"></div>
+
+        <div class="shopping-bag-footer">
+          <div class="totalsP">
+            Total Harga :
+            <span id="current-items-total">Rp 23.456</span>
+          </div>
+          <hr />
+          <form action="#" id="co-form">
+            <h4>Customer Detail</h4>
+
+            <label for="names">
+              <span>Nama</span>
+              <input
+                type="text"
+                name="names"
+                id="names"
+                placeholder="Budi"
+                minlength="5"
+                maxlength="30"
+                required
+                pattern="[A-Za-z ]+"
+                title="Masukkan nama yang valid (huruf alfabet dan spasi)"
+                spellcheck="false"
+              />
+            </label>
+
+            <label for="emails">
+              <span>Email</span>
+              <input
+                type="email"
+                name="emails"
+                id="emails"
+                placeholder="Example@mail.com"
+                required
+                minlength="5"
+                maxlength="50"
+                spellcheck="false"
+              />
+            </label>
+
+            <label for="catatan">
+              <span>Catatan</span>
+              <input
+                type="text"
+                name="catatan"
+                id="catatan"
+                placeholder="Tambahan"
+                minlength="15"
+                maxlength="500"
+                required
+                pattern="[\s\S]+"
+                title="Masukkan Pesan yang valid (huruf, angka, dan spasi)"
+                spellcheck="false"
+              />
+            </label>
+
+            <button
+              class="co-btn disabled"
+              id="co-btn"
+              value="checkout"
+              name="checkout"
+            >
+              Check Out
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Shopping Bag End -->
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>
+          Yuk, seruput nikmatnya segelas
+          <span class="primary-gradient">kopi</span>
+        </h1>
+        <p>
+          Nikmati keharuman kopi pilihan kami, <br />
+          sambil meresapi suasana yang tenang
+        </p>
+        <a href="#products" class="cta btn"
+          ><b><i>Pesan Sekarang</i></b></a
+        >
+      </main>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Start -->
+    <section id="about" class="about">
+      <h2><span class="primary-gradient">Tentang Kami</span></h2>
+
+      <div class="row">
+        <div class="about-img">
+          <img src="img/tentang-kami.webp" alt="Tentang Kami" loading="lazy" />
+        </div>
+        <div class="content">
+          <h3>Tertarik dengan keistimewaan kopi kami?</h3>
+          <p>
+            Temukan kenikmatan tak tergantikan dalam setiap tegukan kopi kami.
+            Kami memilih biji kopi terbaik, dengan cermat memanggangnya untuk
+            menghasilkan rasa yang unik dan cita rasa yang memikat. Nikmati
+            momen istimewa Anda dengan secangkir kopi yang membawa Anda pada
+            perjalanan cita rasa yang luar biasa.
+          </p>
+          <p>
+            Jelajahi aroma kopi pilihan kami yang melibatkan semua indera Anda.
+            Dengan setiap tegukan, Anda akan merasakan kisah perjalanan biji
+            kopi, dari perkebunan hingga ke tangan Anda. Mari bergabung dalam
+            petualangan kenikmatan kopi yang tak terlupakan bersama kami.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Menu Section Start -->
+    <section id="menu" class="menu">
+      <h2><span class="primary-gradient">Menu</span></h2>
+      <p>
+        Jelajahi keanekaragaman cita rasa kopi di menu kami yang disajikan
+        dengan penuh dedikasi dan keahlian.
+      </p>
+      <div class="menu-card hidden" id="menu-card-template">
+        <img
+          src="#"
+          alt="Gula Aren"
+          class="menu-card-img"
+          width="361"
+          loading="lazy"
+        />
+        <h3 class="menu-card-title">Loading item...</h3>
+        <p class="menu-card-price">Loading item...</p>
+      </div>
+      <div class="row" id="menu-list"></div>
+    </section>
+    <!-- Menu Section End -->
+
+    <!-- Product Section Start -->
+    <section class="products" id="products">
+      <h2><span class="primary-gradient">Produk Unggulan</span></h2>
+      <p>
+        Nikmati keajaiban biji kopi unggulan kami, Pengalaman berkualitas tinggi
+        yang memikat.
+      </p>
+
+      <div class="product-card hidden" id="product-card-template">
+        <div class="product-card-inner">
+          <div class="product-icons">
+            <button
+              class="shopping-bag-btn"
+              data-product="biji_toraja"
+              aria-label="Add to Shopping Bag"
+            >
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button
+              class="item-detail-button"
+              data-product="biji_toraja"
+              aria-label="View Item Detail"
+            >
+              <i class="fa-solid fa-info"></i>
+            </button>
+          </div>
+          <div class="product-image">
+            <img
+              src="img/product/product-1.webp"
+              alt="product-1"
+              loading="lazy"
+            />
+          </div>
+          <div class="products-content">
+            <h3>Coffe Beans 1</h3>
+            <div class="product-stars">
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+            </div>
+            <div class="product-price" data-diskon="false">
+              <span class="product-price-discount">IDR 30K</span>
+              <span class="product-price-base">IDR 55K</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="product-list"></div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Contact Section Start -->
+    <section id="contact" class="contact">
+      <h2><span class="primary-gradient">Kontak</span></h2>
+      <p>
+        Hubungi kami untuk informasi lebih lanjut atau sampaikan pertanyaan
+        Anda. Kami siap membantu dengan baik.
+      </p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7979.514090334438!2d100.39504509019856!3d-0.31754399871733985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd5385eaa376441%3A0xbc70430cd3834b8a!2sKubu%20Tj.%2C%20Kec.%20Aur%20Birugo%20Tigo%20Baleh%2C%20Kota%20Bukittinggi%2C%20Sumatera%20Barat!5e0!3m2!1sid!2sid!4v1714841252118!5m2!1sid!2sid"
+          class="map"
+        ></iframe>
+
+        <form action="#" name="kedai-kopi-form">
+          <div class="input-group">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              placeholder="Nama"
+              minlength="5"
+              maxlength="30"
+              required
+              spellcheck="false"
+              name="nama"
+              pattern="^([A-Za-z ])(?!\s+$).+"
+              title="Masukkan nama yang valid (huruf alfabet dan spasi)"
+              autocomplete="off"
+            />
+          </div>
+          <div class="input-group">
+            <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              spellcheck="false"
+              name="email"
+              minlength="15"
+              maxlength="50"
+              autocomplete="off"
+            />
+          </div>
+          <div class="input-group">
+            <i class="fa-solid fa-comment"></i>
+            <input
+              type="text"
+              placeholder="Isi Pesan"
+              minlength="15"
+              maxlength="500"
+              required
+              spellcheck="false"
+              pattern="^(?!\s+$).+"
+              title="Masukkan Pesan yang valid (huruf alfabet dan spasi)"
+              name="pesan"
+              autocomplete="off"
+            />
+          </div>
+          <div>
+            <button id="submit-btn" type="submit" class="btn">
+              <img
+                src="https://s2.svgbox.net/loaders.svg?ic=bars&color=white"
+                width="32"
+                height="32"
+                id="submit-btn-load"
+                alt="Loading Spinner"
+                class="hidden"
+                loading="lazy"
+              />
+              <span id="submit-btn-msg">Kirim Pesan</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer Start -->
+    <footer>
+      <div class="wrapper">
+        <ul>
+          <li class="item-social">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+          </li>
+          <li class="item-social">
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Twitter"
+            >
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+          </li>
+          <li class="item-social">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Facebook"
+            >
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="item-social">
+            <a
+              href="https://www.tiktok.com/id-ID/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="TikTok"
+            >
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="credit">
+        <p>
+          Created by
+          <a
+            href="https://github.com/Zevhys"
+            target="_blank"
+            rel="noreferrer noopener"
+            >Harlan Gilbran</a
+          >
+          | Copyright &copy; 2024
+        </p>
+      </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <button class="close-icon">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+        <div class="modal-content">
+          <div class="product-content">
+            <img
+              src="img/product/product-1.webp"
+              alt="product-1"
+              id="product-img"
+              loading="lazy"
+            />
+            <h3 id="product-name">Product 1</h3>
+            <p id="product-desc">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
+              incidunt repellendus ad aperiam <br />saepe ipsam voluptate
+              placeat in ullam, tenetur eligendi, voluptates porro inventore
+              voluptatem.
+            </p>
+            <div class="product-stars" id="product-rating">
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+              <i class="fa-solid fa-star star-full"></i>
+            </div>
+            <div class="product-price" id="product-prices" data-diskon="true">
+              <span id="product-price-discount" class="product-price-discount"
+                >IDR 30K</span
+              >
+              <span id="product-price" class="product-price-base">IDR 55K</span>
+            </div>
+            <button class="add-to-cart btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span><b>Masukkan Keranjang</b></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="daftar_kopi.js"></script>
+
+    <script src="script.js"></script>
+
+    <!--midtrans-->
+    <script
+      type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-u89kzt0PDkgXr7GF"
+    ></script>
+  </body>
+</html>
